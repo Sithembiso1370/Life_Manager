@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <h2>My Manager</h2>
-      <IncomeStatement/>
+      <Todos/>
     </div>
   );
 }

@@ -1,46 +1,99 @@
 import React,{useState} from 'react'
 
-function push2arra(myold_arr,mynew_arr){
 
-    const new_array = myold_arr.push(mynew_arr);
-    return new_array;
-}
 
 function Todos() {
     // const todoz = [{id: 1,category: "Todoz",date:"name1", description: "Create a todo list"}];
-    const [todoz, setTodoz] = useState([{id: 1,category: "Todoz",date:"name1", description: "Create a todo list"}]);
-    const [newtodoz, setnewtodoz] = useState("");
-    const rows = '';
+    const [todoz, setTodoz] = useState([]);
+    // {id: 1,category: "Todoz",date:"name1", description: "Create a todo list"}
     const today = new Date();
 
-    const addtodo = ()=> {
-        todoz.push({id: todoz.length++,category: newtodoz.category, date:newtodoz.date, description: newtodoz.description});
-        console.log(todoz);
+
+    const [myid, setMyId] = useState(0);
+    const [mycategory, setMyCategory] = useState("");
+    const todasdate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+    const [mydate, setMyDate] = useState(todasdate);
+    const [mydescription, setMyDescription] = useState("");
+    const [mystatus, setMystatus] = useState("");
+
+   
+
+
+
+    const log2console = (event)=> {
+
+    }
+
+    const addcategory = (event)=>{
+        setMyCategory(event.target.value);
+        // console.log("Category Added ",mycategory);
+    }
+
+    const adddescription = (event)=>{
+        setMyDescription(event.target.value);
+        // console.log("Description Added ",mydescription);
+    }
+
+    const addMystatus = (event)=>{
+        setMystatus(event.target.value);
+        console.log(event.target.value);
+    }
+
+    const addid = ()=>{
+        if (todoz.length === 0) {
+            setMyId(0);
+        }
+        else{
+            setMyId(todoz.length);
+            // console.log("Id Added ",todoz.length);
+        }
+
     }
 
 
+    const addTodoz = () =>{
+        addid()
+        
+        todoz.push({id:myid, category: mycategory,date: mydate, description: mydescription, mystatus: mystatus });
+        // console.log(" Added todo : ",{id:myid, category: mycategory,date: mydate, description: mydescription })
+    }
+
     
 
+
+
   return (
-    <div>
+    <div className='todo_crud_component'>
         <div className='todo_head'>
-            <h3>View Todos</h3>
-            <div>
-                
-                <input type="text" placeholder="category" onChange={(event)=>(setnewtodoz([{category: event.target.value}]))}/>
-                <input disabled="true" type="text" placeholder={today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()} onChange={(event)=>(setnewtodoz([{date: today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()}]))}/>
-                <input type="text" placeholder="description" onChange={(event)=>(setnewtodoz([{description: event.target.value}]))}/>
-                <button onClick={addtodo}>Add Todo</button>
-                {/* onClick={setTodoz( todoz =>[...todoz,newtodoz])} */}
+            <h3 className='todo_label'>View Todos</h3>
+            <div className='inputs_holder'>
+                {/* id */}
+                <select name="category" onChange={addcategory} >
+                    <option value="Ideas">Ideas</option>
+                    <option value="Todos">Todos</option>
+                    <option value="Doing">Doing</option>
+                    <option value="Done">Done</option>
+                    <option value="Incomes">Incomes</option>
+                    <option value="Expenses">Expenses</option>
+                    <option value="Plans">Plans</option>
+                </select>
+                <input disabled={true }type="text" placeholder={today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()}/>
+                <input type="text" placeholder="description" onKeyUp={adddescription}/>
+                <select name="status" onChange={addMystatus} >
+                    <option value="InComplete">Incomplete</option>
+                    <option value="Complete">Complete</option>
+                </select>
+                <button onClick={addTodoz}>Add Todo</button>    
             </div>
         </div>
-        <table>
+        <table className='mytable'>
             <thead>
                 <tr>
                     <td>#Id</td>
                     <td>#Category</td>
                     <td>#Date</td>
                     <td>#Description</td>
+                    <td>#Status</td>
                     <td>#Edit</td>
                     <td>#Delete</td>
                 </tr>
@@ -55,6 +108,7 @@ function Todos() {
                     <td>{todo.category}</td>
                     <td>{todo.date}</td>
                     <td>{todo.description}</td>
+                    <td>{todo.mystatus}</td>
                     <td><button>Edit</button></td>
                     <td><button>Delete</button></td>
                 </tr>
