@@ -1,0 +1,64 @@
+
+
+.Dreamline_Worksheet {
+    position: relative;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.Dreamline_Worksheet>.dreamline_header_text{
+    position: relative;
+    background-color: orange;
+    width: 100%;
+    height: 100%;
+}
+
+
+.Dreamline_Worksheet>.dreamlineMain {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.dreamline_crud {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: orangered;
+}
+
+.dreamline_crud>h3{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dreamline_crud>.crud_inputs{
+    position: relative;
+    width: 90%;
+    height: 90%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    gap: 1%;}
+
+.dreamline_crud>.crud_inputs>*{
+    position: relative;
+    display: flex;
+    border: 1px solid black;
+}

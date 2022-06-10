@@ -1,12 +1,13 @@
 import './App.css';
-import Todos from './Pages/Todos';
-import IncomeStatement from './Pages/IncomeStatement';
+import Dreamline from './Pages/Dreamline/Dreamline';
+import Todos from './Pages/Todos/Todos';
+
 
 function App() {
   return (
     <div className="App">
       <h2>My Manager</h2>
-      <Todos/>
+      <Dreamline/>
     </div>
   );
 }
