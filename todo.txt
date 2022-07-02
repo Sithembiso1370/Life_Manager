@@ -2,10 +2,10 @@
 ---------------------- Goal Create a Dashboard inspired life management and Automation Web application and later to Native with RN =======================
 
 
-1. Create a React App with npx create-react-app
-2. Setup Frontend Routing with react-router dom
-3. Setup Grouped Routes for Private data 
-4. Create Login Page
+1. Create a React App with npx create-react-app  -- Done
+2. Setup Frontend Routing with react-router dom --
+3. Setup Grouped Routes for Private data --
+4. Create Login Page --
 5. Create Landing Dashboard Page
 - Setup Type of Projects/Issues to Manage and Automate
 -- Goals (Ideas,Setting/Todo,Planning,Actioning,Completing,Extra features like reminders)

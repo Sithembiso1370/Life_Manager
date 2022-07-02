@@ -34,15 +34,15 @@ const dreamz = [{
 ]
 function DreamlineFilture() {
     // Create a stateValue to hold starter dreamlines
-    const [Dreamlines, setDreamlines] = useState(JSON.parse(localStorage.getItem('dreamlines')) ? JSON.parse(localStorage.getItem('dreamlines')): []);
+    const [Dreamlines, setDreamlines] = useState([]);
 
     // Onload
-    useEffect(() => {
-        const dreamlines = JSON.parse(localStorage.getItem('dreamlines'));
-        if (dreamlines) {
-            setDreamlines(dreamlines);
-        }
-        }, [])
+    // useEffect(() => {
+    //     const dreamlines = JSON.parse(localStorage.getItem('dreamlines'));
+    //     if (dreamlines) {
+    //         setDreamlines(dreamlines);
+    //     }
+    //     }, [])
 
     
     // Create a stateValue to hold a dreamline
