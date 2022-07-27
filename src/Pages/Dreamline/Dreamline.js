@@ -1,13 +1,10 @@
 import React from 'react'
 import './Dreamline.css'
 import DreamlineFilture from './DreamlineFilture'
-import DreamlineOverviews from './DreamlineOverviews'
 import Dreamlinecrud from './Dreamline_crud'
 
 
-const evHandler = (e) =>{
-  console.log(e.target.value);
-}
+
 
 
 function Dreamline() {
@@ -17,8 +14,8 @@ function Dreamline() {
        {/* <DreamlineOverviews/>        */}
        <div className='dreamlineMain'>
           {/* Estimated Timeframe Component */}
-          <Dreamlinecrud evHandler={evHandler}/>
-          <DreamlineFilture  evHandler={evHandler}/>
+          <Dreamlinecrud />
+          <DreamlineFilture  />
        </div>
 
 

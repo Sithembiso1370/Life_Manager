@@ -34,17 +34,23 @@ const dreamz = [{
 ]
 function DreamlineFilture() {
     // Create a stateValue to hold starter dreamlines
-    const [Dreamlines, setDreamlines] = useState([]);
-
-    // Onload
-    // useEffect(() => {
-    //     const dreamlines = JSON.parse(localStorage.getItem('dreamlines'));
-    //     if (dreamlines) {
-    //         setDreamlines(dreamlines);
-    //     }
-    //     }, [])
-
-    
+    const [Dreamlines, setDreamlines] = useState([
+        {
+            id : 0,
+            date: "22/05/2022",
+            timeframe: "7 days",
+            ActionType: "Having",
+            LifeCategorytYPE: "Business",
+            desription: "Test",
+            why: "Master React",
+            Cost_Type: "Time",
+            estimatedcost: "1 Month",
+            actualcost: "3 months",
+           actualtimeframe: "ddddd",
+            Steps: ['Start'],
+            Progress: "10%",
+        }
+    ]);
     // Create a stateValue to hold a dreamline
     const [Dreamline, setDreamline] = useState([{
         id : 0,
@@ -54,6 +60,7 @@ function DreamlineFilture() {
         LifeCategorytYPE: "",
         desription: "",
         why: "",
+        Cost_Type: "",
         estimatedcost: "",
         actualcost: "",
        actualtimeframe: "",
@@ -61,12 +68,18 @@ function DreamlineFilture() {
         Progress: "",
     }]);
 
-    // const getlocalstoragedreamlines =  useEffect(() => {
-    //     const dreamlines = JSON.parse(localStorage.getItem('dreamlines'));
-    //     if (dreamlines) {
-    //      setDreamlines(dreamlines);
-    //     }
-    //   }, [])
+    const [id, setid] = useState('');
+    const [date, setdate] = useState('');
+    const [ timeframe, settimeframe] = useState('');
+    const [ActionType, setActionType] = useState('');
+    const [LifeCategorytYP, setLifeCategorytYP] = useState('');
+    const [desription, setdesription] = useState('');
+    const [why, setwhy] = useState('');
+    const [Cost_Type, setCost_Type] = useState('');
+    const [estimatedcost, setestimatedcost] = useState('');
+    const [actualtimeframe, setactualtimeframe] = useState('');
+    const [NoofSteps, setNoofSteps] = useState('');
+    const [Progress, setProgress] = useState('');
 
 
 
@@ -92,6 +105,7 @@ function DreamlineFilture() {
                     <th>#LifeCategorytYPE</th>
                     <th>#desription</th>
                     <th>#why</th>
+                    <th>#Cost_Type</th>
                     <th>#estimated cost</th>
                     <th>#actual cost</th>
                     <th>#actual timeframe</th>
@@ -107,31 +121,20 @@ function DreamlineFilture() {
                     <tr>
                         <td>{dream.id}</td>
                         <td>{dream.date}</td>
-                        <td>{dream.duedate}</td>
+                        <td>{dream.timeframe}</td>
                         <td>{dream.ActionType}</td>
                         <td>{dream.LifeCategorytYPE}</td>
                         <td>{dream.desription}</td>
                         <td>{dream.why}</td>
+                        <td>{dream.Cost_Type}</td>
                         <td>{dream.estimatedcost}</td>
                         <td>{dream.actualcost}</td>
                         <td>{dream.actualtimeframe}</td>
-                        <td>{dream.Steps}</td>
+                        <td>{dream.Steps.length}</td>
                         <td>{dream.Progress}</td>
                         <td><button>View</button></td>
                         <td><button>Delete</button></td>
                     </tr>
-        // id: getDreamId,
-        // date: new Date().toDateString(),
-        // duedate: dueDate[0].no + dueDate[0].timeframe ,
-        // ActionType: "",
-        // LifeCategorytYPE: "",
-        // desription: "",
-        // why: "",
-        // estimatedcost: 0.00,
-        // actualcost: 0.00,
-        // actualtimeframe: "16 DAYS",
-        // Steps: "6",
-        // Progress: "25%"
                     
                     )
                 }
