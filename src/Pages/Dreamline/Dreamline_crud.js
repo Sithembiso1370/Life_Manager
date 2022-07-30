@@ -6,14 +6,10 @@ import React,{useState,useEffect} from 'react';
 
 function Dreamlinecrud() {
     const dateTodayy = new Date();
-    const [Dreamlines, setDreamlines] = useState([]);
+    const items = JSON.parse(localStorage.getItem('Dreamlines')) ? JSON.parse(localStorage.getItem('Dreamlines')) : [];
+    const [Dreamlines, setDreamlines] = useState(items);
 
-    useEffect(() => {
-        const items = JSON.parse(localStorage.getItem('Dreamlines'));
-        if (items) {
-            setDreamlines(Dreamlines);
-        }
-    }, [Dreamlines]);
+
 
     const [date, setdate] = useState(new Date);
     const [timeframeNumber, settimeframeNumber] = useState(0);
@@ -38,6 +34,7 @@ function Dreamlinecrud() {
     const add2LocalStorage = (what,arrray) =>{
         try {
             localStorage.setItem(what, JSON.stringify(arrray));
+            console.log('added to local storage')
             return 1;
         } catch (error) {
             return 0;
@@ -47,8 +44,10 @@ function Dreamlinecrud() {
     const addDreamline = (e) =>{
         // SET THE DREAMLINE VALUES FOR EACH KEY
         try {
+            
             setDreamlines([...Dreamlines,Dreamline]);
-            add2LocalStorage("Dreamlines",Dreamlines);
+            console.log([...Dreamlines,Dreamline]);
+            add2LocalStorage("Dreamlines",[...Dreamlines,Dreamline]);
         } catch (error) {
             console.log(error)
         }

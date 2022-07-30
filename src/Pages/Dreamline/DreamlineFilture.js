@@ -33,24 +33,40 @@ const dreamz = [{
 },
 ]
 function DreamlineFilture() {
+
+
+
     // Create a stateValue to hold starter dreamlines
-    const [Dreamlines, setDreamlines] = useState([
-        {
-            id : 0,
-            date: "22/05/2022",
-            timeframe: "7 days",
-            ActionType: "Having",
-            LifeCategorytYPE: "Business",
-            desription: "Test",
-            why: "Master React",
-            Cost_Type: "Time",
-            estimatedcost: "1 Month",
-            actualcost: "3 months",
-           actualtimeframe: "ddddd",
-            Steps: ['Start'],
-            Progress: "10%",
-        }
-    ]);
+    // [
+    //     {
+    //         id : 0,
+    //         date: "22/05/2022",
+    //         timeframe: "7 days",
+    //         ActionType: "Having",
+    //         LifeCategorytYPE: "Business",
+    //         desription: "Test",
+    //         why: "Master React",
+    //         Cost_Type: "Time",
+    //         estimatedcost: "1 Month",
+    //         actualcost: "3 months",
+    //        actualtimeframe: "ddddd",
+    //         Steps: ['Start'],
+    //         Progress: "10%",
+    //     }
+    // ]
+    
+
+
+    const items = JSON.parse(localStorage.getItem('Dreamlines')) ? JSON.parse(localStorage.getItem('Dreamlines')) : [];
+    const [Dreamlines, setDreamlines] = useState(items);
+    // const [Dreamlines, setDreamlines] = useState([]);
+
+    // for (const Dreamline of Dreamlines) {
+    //     console.log("dream :",Dreamline)
+    // }
+
+    console.log("dream :",Dreamlines[0])
+    
     // Create a stateValue to hold a dreamline
     const [Dreamline, setDreamline] = useState([{
         id : 0,
@@ -130,7 +146,7 @@ function DreamlineFilture() {
                         <td>{dream.estimatedcost}</td>
                         <td>{dream.actualcost}</td>
                         <td>{dream.actualtimeframe}</td>
-                        <td>{dream.Steps.length}</td>
+                        {/* <td>{dream.Steps.length}</td> */}
                         <td>{dream.Progress}</td>
                         <td><button>View</button></td>
                         <td><button>Delete</button></td>
