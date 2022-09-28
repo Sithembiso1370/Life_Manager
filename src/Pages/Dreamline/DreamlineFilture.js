@@ -57,8 +57,8 @@ function DreamlineFilture() {
     
 
 
-    const items = JSON.parse(localStorage.getItem('Dreamlines')) ? JSON.parse(localStorage.getItem('Dreamlines')) : [];
-    const [Dreamlines, setDreamlines] = useState(items);
+    // const items = JSON.parse(localStorage.getItem('Dreamlines')) ? JSON.parse(localStorage.getItem('Dreamlines')) : [];
+    const [Dreamlines, setDreamlines] = useState([]);
     // const [Dreamlines, setDreamlines] = useState([]);
 
     // for (const Dreamline of Dreamlines) {
