@@ -27,6 +27,14 @@ function Dreamlinecrud() {
         }
     );
 
+    const handleUpdate = (e) => {
+        const nameT = e.target.name;
+        Dreamline[nameT] = e.target.value;
+        setDreamline({...Dreamline})
+        console.log("added "+e.target.name+" to dreamline :",Dreamline)
+        console.log(nameT)
+    }
+
 
     const addDreamline = () => {
         console.log("adding dreamline",Dreamline)
@@ -92,7 +100,7 @@ function Dreamlinecrud() {
 
         <tbody className="mytbody">
             <tr>
-                <td><label>Startdate</label><input type='date' name="startdate" onChange={(e)=>setDreamline({date : e.target.value})} /></td>
+                <td><label>Startdate</label><input type='date' name="date" onChange={(e)=>handleUpdate(e)} /></td>
                 <td>
                     <label>timeframe Timeframe</label>
                     <input type='number' placeholder='type...' onChange={(e)=>setDreamline({timeframetimeframe : e.target.value})}/>
@@ -104,7 +112,7 @@ function Dreamlinecrud() {
                 </td>
                 <td>
                     <label>ActionType</label>
-                    <select onChange={(e)=>{setDreamline({date: e.target.value})}}>
+                    <select name="ActionType" onChange={(e)=>handleUpdate(e)}>
                         <option>DOING</option>
                         <option>HAVING</option>
                         <option>BEING</option>
@@ -112,7 +120,7 @@ function Dreamlinecrud() {
                 </td>
                 <td>
                     <label>Category</label>
-                    <select onChange={(e)=>{setDreamline({date: e.target.value})}}>
+                    <select name="LifeCategorytYPE" onChange={(e)=>handleUpdate(e)}>
                         <option>Health</option>
                         <option>Education</option>
                         <option>Finances</option>
@@ -128,7 +136,7 @@ function Dreamlinecrud() {
                     </select>
                 </td>
 
-                <td><label>description</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
+                <td><label>description</label><input type='text' placeholder='type...' name="desription" onChange={(e)=>handleUpdate(e)}/></td>
                 <td><label>why</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
                 <td><label>Cost Type</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
                 <td><label>Estimated cost</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
@@ -162,5 +170,6 @@ function Dreamlinecrud() {
 }
 
 export default Dreamlinecrud
+
 
 
