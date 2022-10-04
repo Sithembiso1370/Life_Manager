@@ -8,11 +8,27 @@ function Dreamlinecrud() {
     const dateTodayy = new Date();
     // const items = JSON.parse(localStorage.getItem('Dreamlines')) ? JSON.parse(localStorage.getItem('Dreamlines')) : [];
     const [Dreamlines, setDreamlines] = useState([]);
+    const [timeframeObject,setTimeframeObject] = useState({number: 0,range:''})
+    const [mydate, setmydate] = useState(new Date());
+    console.log('date == ',mydate)
+
+
+    useEffect(() => {
+        const Dreamlinez = JSON.parse(localStorage.getItem('Dreamlines')) ;
+  
+        if (Dreamlinez) {
+         setDreamlines(Dreamlinez);
+        }
+
+        console.log("Dreamlines : ",Dreamlines)
+      }, []);
+
+
     const [Dreamline, setDreamline] = useState(
         {
             id : 0,
-            date: '',
-            timeframetimeframe: '',
+            date: mydate,
+            timeframe: '',
             ActionType: '',
             LifeCategorytYPE: '',
             desription: '',
@@ -27,58 +43,79 @@ function Dreamlinecrud() {
         }
     );
 
+
     const handleUpdate = (e) => {
         const nameT = e.target.name;
         Dreamline[nameT] = e.target.value;
         setDreamline({...Dreamline})
         console.log("added "+e.target.name+" to dreamline :",Dreamline)
         console.log(nameT)
+        console.log("Dreamlines.length :",Dreamlines.length);
+        console.log("Dreamlines. :",Dreamlines)
+     }
+
+    const handleUpdateArrays = (e) => {
+        const nameT = e.target.name;
+        Dreamline[nameT] = [...Dreamline[nameT],e.target.value];
+        setDreamline({...Dreamline})
+        console.log("added "+e.target.name+" to dreamline :",Dreamline)
+        console.log(nameT)
+    }
+
+    const handleTimeframeUpdate = (e) => {
+        const nameT = e.target.name
+        const valueT = e.target.valueT
+
+        if (nameT == 'number') {
+            timeframeObject[nameT] = e.target.value
+            setTimeframeObject({...timeframeObject})
+            console.log("number ==",e.target.value)
+        }
+        else{
+            timeframeObject[nameT] = e.target.value
+            setTimeframeObject({...timeframeObject})
+            console.log(` ${nameT} =`,e.target.value)
+        }
+
+        Dreamline['timeframe'] = timeframeObject.number+timeframeObject.range;
+        setDreamline({...Dreamline})
     }
 
 
     const addDreamline = () => {
-        console.log("adding dreamline",Dreamline)
+        // Add id
+        Dreamline['id'] = Dreamlines.length+1;
+        setDreamline({...Dreamline})
+        // add dreamline
+        setDreamlines([...Dreamlines,Dreamline]);
+        console.log("New dreamlines",Dreamlines);
+        // save to local storage
+        saveDreamlines();
     }
 
+    const saveDreamlines = () => {
+        // SAVE TO LOCAL STORAGE
+        
+        const saveResponce = add2LocalStorage("Dreamlines",Dreamlines);
+        if (saveResponce) {
+            console.log("Dreamlines Saved to local storage")
+        }
+        else{
+            console.log("Dreamlines NOT Saved to local storage")
+        }
 
-    const [mydate, setmydate] = useState(new Date());
-    console.log(mydate)
-
-    
-
-    
+    }
 
 
     const add2LocalStorage = (what,arrray) =>{
         try {
             localStorage.setItem(what, JSON.stringify(arrray));
-            console.log('added to local storage')
+
             return 1;
         } catch (error) {
             return 0;
         }     
     }
-
-
-
-    // useEffect(() => { // this hook will get called everytime when myArr has changed
-    //     // perform some action which will get fired everytime when myArr gets updated
-    //         console.log("Old dreamlines = ",Dreamlines);
-    //         setDreamlines([...Dreamlines,Dreamline]);
-
-    //         add2LocalStorage("Dreamlines",[...Dreamlines,Dreamline]);
-    //         console.log("New dreamline = ",Dreamline);
-    //         console.log('Updated Dreamlines', Dreamlines)
-    //     },Dreamline)
-
-        useEffect(() => {
-            console.log("Old dreamlines = ",Dreamlines);
-            setDreamlines([...Dreamlines,Dreamline]);
-
-            add2LocalStorage("Dreamlines",[...Dreamlines,Dreamline]);
-            console.log("New dreamline = ",Dreamline);
-            console.log('Updated Dreamlines', Dreamlines)
-          },Dreamline);
 
     const clearDreamlines = (what) =>{
         try {
@@ -103,8 +140,8 @@ function Dreamlinecrud() {
                 <td><label>Startdate</label><input type='date' name="date" onChange={(e)=>handleUpdate(e)} /></td>
                 <td>
                     <label>timeframe Timeframe</label>
-                    <input type='number' placeholder='type...' onChange={(e)=>setDreamline({timeframetimeframe : e.target.value})}/>
-                    <select onChange={(e)=>setDreamline({timeframetimeframe: Dreamline.timeframetimeframe + e.target.value})}>
+                    <input type='number' placeholder='type...' name="number" onChange={(e)=>handleTimeframeUpdate(e)}/>
+                    <select name="range" onChange={(e)=>handleTimeframeUpdate(e)}>
                         <option>Days</option>
                         <option>Weeks</option>
                         <option>Months</option>
@@ -137,28 +174,28 @@ function Dreamlinecrud() {
                 </td>
 
                 <td><label>description</label><input type='text' placeholder='type...' name="desription" onChange={(e)=>handleUpdate(e)}/></td>
-                <td><label>why</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
-                <td><label>Cost Type</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
-                <td><label>Estimated cost</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
-                <td><label>Actual cost</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
-                <td><label>Actual timeframe</label><input type='text' placeholder='type...' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
+                <td><label>why</label><input type='text' name="why" placeholder='type...' onChange={(e)=>handleUpdate(e)}/></td>
+                <td><label>Cost Type</label><input type='text' name="costType" placeholder='type...' onChange={(e)=>handleUpdate(e)}/></td>
+                <td><label>Estimated cost</label><input type='text' name="estimatedcost" placeholder='type...' onChange={(e)=>handleUpdate(e)}/></td>
+                <td><label>Actual cost</label><input type='text' name="actualcost" placeholder='type...' onChange={(e)=>handleUpdate(e)}/></td>
+                <td><label>Actual timeframe</label><input type='text' name="actualtimeframe" placeholder='type...' onChange={(e)=>handleUpdate(e)}/></td>
                 <td>
                     <label>Steps</label>
-                    <select onChange={(e)=>{setDreamline({date: e.target.value})}}>
-                        <option>Start</option>
-                        <option>...</option>
-                        <option>Complete</option>
+                    <select name="Steps" onChange={(e)=>handleUpdateArrays(e)}>
+                        <option>Start (add date)</option>
+                        <option>Update (add date)</option>
+                        <option>Complete (add date)</option>
                     </select>
                 </td>
                 <td>
                     <label>Status</label>
-                    <select onChange={(e)=>{setDreamline({date: e.target.value})}}>
+                    <select name="status" onChange={(e)=>handleUpdate(e)}>
                         <option>Proposed</option>
                         <option>Completed</option>
                         <option>OverDue</option>
                     </select>
                 </td>
-                <td><label>Progress %</label><input type='text' placeholder='10%' onChange={(e)=>{setDreamline({date: e.target.value})}}/></td>
+                <td><label>Progress %</label><input type='text' name="Progress" placeholder='10%' onChange={(e)=>handleUpdate(e)}/></td>
                 <td><button onClick={addDreamline}>Add</button></td>
                 <td><button onClick={()=>{clearDreamlines("Dreamlines")}}>Delete</button></td>
             </tr>
