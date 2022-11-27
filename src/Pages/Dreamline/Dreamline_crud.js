@@ -1,29 +1,21 @@
 import React,{useState,useEffect} from 'react';
 
+// Helper Functions
+const add2LocalStorage = (what,arrray) =>{
+    try {
+        localStorage.setItem(what, JSON.stringify(arrray));
 
-
+        return 1;
+    } catch (error) {
+        return 0;
+    }     
+}
 
 
 function Dreamlinecrud() {
     const dateTodayy = new Date();
     // const items = JSON.parse(localStorage.getItem('Dreamlines')) ? JSON.parse(localStorage.getItem('Dreamlines')) : [];
     const [Dreamlines, setDreamlines] = useState([]);
-    const [timeframeObject,setTimeframeObject] = useState({number: 0,range:''})
-    const [mydate, setmydate] = useState(new Date());
-    console.log('date == ',mydate)
-
-
-    useEffect(() => {
-        const Dreamlinez = JSON.parse(localStorage.getItem('Dreamlines')) ;
-  
-        if (Dreamlinez) {
-         setDreamlines(Dreamlinez);
-        }
-
-        console.log("Dreamlines : ",Dreamlines)
-      }, []);
-
-
     const [Dreamline, setDreamline] = useState(
         {
             id : 0,
@@ -42,12 +34,29 @@ function Dreamlinecrud() {
             status: ''
         }
     );
+    const [timeframeObject,setTimeframeObject] = useState({number: 0,range:''})
+    const [mydate, setmydate] = useState(new Date());
+    console.log('date == ',mydate)
+
+
+    useEffect(() => {
+        const Dreamlinez = JSON.parse(localStorage.getItem('Dreamlines'));
+  
+        if (Dreamlinez) {
+         setDreamlines(Dreamlinez);
+        }
+
+        console.log("Dreamlines : ",Dreamlines)
+      }, []);
+
+
+
 
 
     const handleUpdate = (e) => {
         const nameT = e.target.name;
         Dreamline[nameT] = e.target.value;
-        setDreamline({...Dreamline})
+        setDreamline({...Dreamline});
         console.log("added "+e.target.name+" to dreamline :",Dreamline)
         console.log(nameT)
         console.log("Dreamlines.length :",Dreamlines.length);
@@ -87,35 +96,19 @@ function Dreamlinecrud() {
         Dreamline['id'] = Dreamlines.length+1;
         setDreamline({...Dreamline})
         // add dreamline
+        console.log("OLD dreamlines",Dreamlines.length);
         setDreamlines([...Dreamlines,Dreamline]);
-        console.log("New dreamlines",Dreamlines);
-        // save to local storage
-        saveDreamlines();
-    }
+        console.log("New dreamlines",Dreamlines.length);
 
-    const saveDreamlines = () => {
-        // SAVE TO LOCAL STORAGE
-        
-        const saveResponce = add2LocalStorage("Dreamlines",Dreamlines);
-        if (saveResponce) {
-            console.log("Dreamlines Saved to local storage")
-        }
-        else{
-            console.log("Dreamlines NOT Saved to local storage")
-        }
-
-    }
-
-
-    const add2LocalStorage = (what,arrray) =>{
         try {
-            localStorage.setItem(what, JSON.stringify(arrray));
-
-            return 1;
+            // save to local storage
+            add2LocalStorage("Dreamlines",Dreamlines);
+            console.log("NEW DREAMLINES ARRAY  ADDED TO LOCAL STORAGE ..")
         } catch (error) {
-            return 0;
-        }     
+            console.log("NEW DREAMLINES ARRAY COULD NOT BE ADDED TO LOCAL STORAGE:",error);
+        }
     }
+
 
     const clearDreamlines = (what) =>{
         try {
@@ -125,6 +118,14 @@ function Dreamlinecrud() {
         } catch (error) {
             return 0;
         }  
+    }
+
+    const DeleteDreamline = () => {
+
+    }
+
+    const EditDreamline = () => {
+        
     }
 
 

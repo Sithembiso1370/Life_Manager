@@ -1,0 +1,17 @@
+Create A Dyanamic Express and Node JS Backend Appication Server and a MongoDB Database for Long Term Data Persistance.
+Create an Express App and host on a Local port
+Make a connection to my mongo DB Custer
+Create Models 
+Create Modes for each table/collection of data I have
+Migrate the models
+Wire routes to their respective models
+Test routes with a dummy http client
+Connect Backend To Front-End
+Test everything for one week
+Experiment with 3 online free hosting partforms for 1 week
+Declaire Primary Development Stage Complete and Ready for hosting
+Host Online
+Evolve, Grow ,Learn, Serve
+
+
+

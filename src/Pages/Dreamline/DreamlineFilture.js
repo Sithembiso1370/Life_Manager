@@ -1,10 +1,16 @@
 import React,{useState,useEffect} from 'react'
+import { useParams } from "react-router-dom";
 
 
 
 
 
 function DreamlineFilture() {
+    const params = useParams();
+    let params_id = params.my_id ;
+
+        console.log("params_id",params_id);
+
 
     // const items = JSON.parse(localStorage.getItem('Dreamlines')) ? JSON.parse(localStorage.getItem('Dreamlines')) : [];
     const [Dreamlines, setDreamlines] = useState([]);
@@ -22,6 +28,34 @@ function DreamlineFilture() {
 
 
     console.log("[d,t,i].length = ",['d','t','i'].length)
+
+    let toDisplay = '';
+
+    if (!params_id) {
+        toDisplay = Dreamlines.map((dream)=>
+        <tr>
+            <td>{dream.id}</td>
+            <td>{dream.date}</td>
+            <td>{dream.timeframe}</td>
+            <td>{dream.ActionType}</td>
+            <td>{dream.LifeCategorytYPE}</td>
+            <td>{dream.desription}</td>
+            <td>{dream.why}</td>
+            <td>{dream.Cost_Type}</td>
+            <td>{dream.estimatedcost}</td>
+            <td>{dream.actualcost}</td>
+            <td>{dream.actualtimeframe}</td>
+            {/* <td>{dream.Steps.length}</td> */}
+            <td>{dream.Progress}</td>
+            <td>{dream.status}</td>
+            <td><a href={'?my_id='+dream.id}>View</a></td>
+            <td><button>Delete</button></td>
+        </tr>
+        );
+    } else {
+        toDisplay = '';
+    }
+
 
 
   return (
@@ -56,29 +90,9 @@ function DreamlineFilture() {
                     <th>#Delete</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody> 
                 {
-                    Dreamlines.map((dream)=>
-                    <tr>
-                        <td>{dream.id}</td>
-                        <td>{dream.date}</td>
-                        <td>{dream.timeframe}</td>
-                        <td>{dream.ActionType}</td>
-                        <td>{dream.LifeCategorytYPE}</td>
-                        <td>{dream.desription}</td>
-                        <td>{dream.why}</td>
-                        <td>{dream.Cost_Type}</td>
-                        <td>{dream.estimatedcost}</td>
-                        <td>{dream.actualcost}</td>
-                        <td>{dream.actualtimeframe}</td>
-                        {/* <td>{dream.Steps.length}</td> */}
-                        <td>{dream.Progress}</td>
-                        <td>{dream.status}</td>
-                        <td><button>View</button></td>
-                        <td><button>Delete</button></td>
-                    </tr>
-                    
-                    )
+                    toDisplay
                 }
             </tbody>
         </table>
