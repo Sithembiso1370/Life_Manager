@@ -1,6 +1,9 @@
 import React from 'react'
 import './App.css';
-import Dreamline from './Pages/Dreamline/Dreamline';
+import Footer from './Components/Footer/Footer';
+import Header from './Components/Header/Header';
+import Dreamline_Worksheet from './Pages/Dreamline/Dreamline_Worksheet';
+
 
 
 
@@ -8,8 +11,10 @@ import Dreamline from './Pages/Dreamline/Dreamline';
 function App() {
   return (
     <div className="App">
-      <h2>My Manager</h2>
-      <Dreamline/>
+      {/* replace the below H2 element with a proper header */}
+      <Header/>
+      <div>HOME</div>
+      <Footer/>
     </div>
   );
 }

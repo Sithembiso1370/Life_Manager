@@ -16,13 +16,20 @@ function DreamlineFilture() {
     const [Dreamlines, setDreamlines] = useState([]);
 
 
-
+    // Implement a use effect hook to get local storage dreamlines data ans ans set the current state value to the returned data
     useEffect(() => {
-      const Dreamlinez = JSON.parse(localStorage.getItem('Dreamlines')) ;
+      
 
-      if (Dreamlinez) {
-       setDreamlines(Dreamlinez);
+      try {
+        const Dreamlinez = JSON.parse(localStorage.getItem('Dreamlines')) ;
+        if (Dreamlinez) {
+            setDreamlines(Dreamlinez);
+           }
+      } catch (error) {
+        console.log("Error getting dreamlines : ",error)
       }
+
+
       console.log("Dreamlines : ",Dreamlines)
     }, []);
 
@@ -31,7 +38,7 @@ function DreamlineFilture() {
 
     let toDisplay = '';
 
-    if (!params_id) {
+    if (!params_id && Dreamlines.length>0) {
         toDisplay = Dreamlines.map((dream)=>
         <tr>
             <td>{dream.id}</td>

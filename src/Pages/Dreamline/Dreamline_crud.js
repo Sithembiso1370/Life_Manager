@@ -1,10 +1,9 @@
 import React,{useState,useEffect} from 'react';
 
 // Helper Functions
-const add2LocalStorage = (what,arrray) =>{
+const add2LocalStorage =  (what,arrray) =>{
     try {
         localStorage.setItem(what, JSON.stringify(arrray));
-
         return 1;
     } catch (error) {
         return 0;
@@ -40,13 +39,17 @@ function Dreamlinecrud() {
 
 
     useEffect(() => {
-        const Dreamlinez = JSON.parse(localStorage.getItem('Dreamlines'));
-  
-        if (Dreamlinez) {
-         setDreamlines(Dreamlinez);
+        
+
+        try {
+            const Dreamlinez = JSON.parse(localStorage.getItem('Dreamlines'));
+            if (Dreamlinez) {
+                setDreamlines(Dreamlinez);
+               }
+        } catch (error) {
+            console.log(error)
         }
 
-        console.log("Dreamlines : ",Dreamlines)
       }, []);
 
 
@@ -57,19 +60,19 @@ function Dreamlinecrud() {
         const nameT = e.target.name;
         Dreamline[nameT] = e.target.value;
         setDreamline({...Dreamline});
-        console.log("added "+e.target.name+" to dreamline :",Dreamline)
-        console.log(nameT)
-        console.log("Dreamlines.length :",Dreamlines.length);
-        console.log("Dreamlines. :",Dreamlines)
-     }
+        // console.log("added "+e.target.name+" to dreamline :",Dreamline)
+        // console.log(nameT)
+        // console.log("Dreamlines.length :",Dreamlines.length);
+        // console.log("Dreamlines. :",Dreamlines)
+     };
 
     const handleUpdateArrays = (e) => {
         const nameT = e.target.name;
         Dreamline[nameT] = [...Dreamline[nameT],e.target.value];
         setDreamline({...Dreamline})
-        console.log("added "+e.target.name+" to dreamline :",Dreamline)
-        console.log(nameT)
-    }
+        // console.log("added "+e.target.name+" to dreamline :",Dreamline)
+        // console.log(nameT)
+    };
 
     const handleTimeframeUpdate = (e) => {
         const nameT = e.target.name
@@ -78,36 +81,40 @@ function Dreamlinecrud() {
         if (nameT == 'number') {
             timeframeObject[nameT] = e.target.value
             setTimeframeObject({...timeframeObject})
-            console.log("number ==",e.target.value)
+            // console.log("number ==",e.target.value)
         }
         else{
             timeframeObject[nameT] = e.target.value
             setTimeframeObject({...timeframeObject})
-            console.log(` ${nameT} =`,e.target.value)
+            // console.log(` ${nameT} =`,e.target.value)
         }
 
         Dreamline['timeframe'] = timeframeObject.number+timeframeObject.range;
         setDreamline({...Dreamline})
-    }
+    };
 
 
-    const addDreamline = () => {
+    const addDreamline = async  () => {
         // Add id
         Dreamline['id'] = Dreamlines.length+1;
-        setDreamline({...Dreamline})
+        setDreamline({...Dreamline});
         // add dreamline
-        console.log("OLD dreamlines",Dreamlines.length);
         setDreamlines([...Dreamlines,Dreamline]);
-        console.log("New dreamlines",Dreamlines.length);
+        // console.log("Current Dreamline = ",Dreamline)
+        // console.log("New dreamlines",Dreamlines);
+        // alert(Dreamlines.id +" : "+ Dreamline.desription);
 
-        try {
-            // save to local storage
-            add2LocalStorage("Dreamlines",Dreamlines);
-            console.log("NEW DREAMLINES ARRAY  ADDED TO LOCAL STORAGE ..")
-        } catch (error) {
-            console.log("NEW DREAMLINES ARRAY COULD NOT BE ADDED TO LOCAL STORAGE:",error);
+
+        // Try to save to local storage
+        const resp = await add2LocalStorage("Dreamlines",Dreamlines);
+        if (resp) {
+            console.log("NEW DREAMLINES ARRAY  ADDED TO LOCAL STORAGE .. ");
+            console.log("local storage = ", JSON.parse(localStorage.getItem('Dreamlines')));
         }
-    }
+        else{
+            console.log("Could not add items to local storage");
+        }
+    };
 
 
     const clearDreamlines = (what) =>{
@@ -130,7 +137,8 @@ function Dreamlinecrud() {
 
 
 
-
+    const CurrentDreamlineText = <span>{Dreamline.id} | {Dreamline.desription ? Dreamline.desription : "Empty description"}</span> ;
+    
   return (
     <div className='dreamline_crud' >
         <h3>Add dreamLine</h3>
@@ -201,7 +209,9 @@ function Dreamlinecrud() {
                 <td><button onClick={()=>{clearDreamlines("Dreamlines")}}>Delete</button></td>
             </tr>
         </tbody>
-
+        <div>
+            Current Dreamline = {CurrentDreamlineText}
+        </div>
         </div>
     </div>
   )

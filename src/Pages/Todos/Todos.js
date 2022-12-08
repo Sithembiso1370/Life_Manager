@@ -5,6 +5,13 @@ import React,{useState} from 'react'
 function Todos() {
     // const todoz = [{id: 1,category: "Todoz",date:"name1", description: "Create a todo list"}];
     const [todoz, setTodoz] = useState([]);
+    const [Todo, setTodo] = useState([
+        {
+            id: 1,
+            category: "Todoz",
+            date:"name1", 
+            description: "Create a todo list"}
+    ])
     // {id: 1,category: "Todoz",date:"name1", description: "Create a todo list"}
     const today = new Date();
 
@@ -58,6 +65,10 @@ function Todos() {
         // console.log(" Added todo : ",{id:myid, category: mycategory,date: mydate, description: mydescription })
     }
 
+    const saveTodoz = () => {
+        addTodoz();
+    }
+
     
 
 
@@ -69,7 +80,7 @@ function Todos() {
             <div className='inputs_holder'>
                 {/* id */}
                 <select name="category" onChange={addcategory} >
-                    <option value="Ideas">Ideas</option>
+                    <option value="Ideas">Computer Science</option>
                     <option value="Todos">Todos</option>
                     <option value="Doing">Doing</option>
                     <option value="Done">Done</option>
@@ -83,7 +94,7 @@ function Todos() {
                     <option value="InComplete">Incomplete</option>
                     <option value="Complete">Complete</option>
                 </select>
-                <button onClick={addTodoz}>Add Todo</button>    
+                <button onClick={saveTodoz}>Add Todo</button>    
             </div>
         </div>
         <table className='mytable'>
